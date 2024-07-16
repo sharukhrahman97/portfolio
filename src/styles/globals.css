@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 240 10% 3.9%;
+		--card: 0 0% 100%;
+		--card-foreground: 240 10% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+		--primary: 142.1 76.2% 36.3%;
+		--primary-foreground: 355.7 100% 97.3%;
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
+		--muted: 240 4.8% 95.9%;
+		--muted-foreground: 240 3.8% 46.1%;
+		--accent: 240 4.8% 95.9%;
+		--accent-foreground: 240 5.9% 10%;
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 240 5.9% 90%;
+		--input: 240 5.9% 90%;
+		--ring: 142.1 76.2% 36.3%;
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: 20 14.3% 4.1%;
+		--foreground: 0 0% 95%;
+		--card: 24 9.8% 10%;
+		--card-foreground: 0 0% 95%;
+		--popover: 0 0% 9%;
+		--popover-foreground: 0 0% 95%;
+		--primary: 142.1 70.6% 45.3%;
+		--primary-foreground: 144.9 80.4% 10%;
+		--secondary: 240 3.7% 15.9%;
+		--secondary-foreground: 0 0% 98%;
+		--muted: 0 0% 15%;
+		--muted-foreground: 240 5% 64.9%;
+		--accent: 12 6.5% 15.1%;
+		--accent-foreground: 0 0% 98%;
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 85.7% 97.3%;
+		--border: 240 3.7% 15.9%;
+		--input: 240 3.7% 15.9%;
+		--ring: 142.4 71.8% 29.2%;
+	}
+}
+
+@layer base {
+	@font-face {
+		font-family: "CalSans Semibold";
+		src: url("/fonts/calsans-semibold.woff2") format("woff2");
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	* {
+		@apply border-border;
+	}
+
+	/* If you want a custom scrollbar - By @diomed */
+	* {
+		@apply border-border;
+		--sb-track-color: #ffffff;
+		--sb-thumb-color: #e2e3f1;
+		--sb-size: 10px;
+
+		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+	}
+
+	::-webkit-scrollbar {
+		width: var(--sb-size);
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--sb-track-color);
+		border-radius: 10px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: var(--sb-thumb-color);
+		border-radius: 10px;
+	}
+
+	html {
+		/* scroll-padding-top: 4rem; */
+		@apply scroll-pt-16 lg:scroll-pt-0;
+	}
+
+	body {
+		@apply bg-background text-foreground font-sans;
+		font-feature-settings: "rlig" 1, "calt" 1;
+	}
+
+	.balance-text {
+		text-wrap: balance;
+	}
+
+	/* Documentation part */
+	.docs-grid-cols-2 {
+		@apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4;
+	}
+
+	.callout > * {
+		@apply my-0 !important;
+	}
+
+	.font-icon-callout {
+		font-family: Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+	}
+
+	/* MdxComponent: For <code></code> with no parent <pre></pre> */
+	:not(pre) > code {
+		@apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-background text-foreground;
+	}
+}
+
+.text-gradient {
+	background: linear-gradient(90deg, #20b356 0%, #75e6a1 100%);
+	/* background: linear-gradient(83.21deg,#3245ff 0%,#bc52ee 100%); */
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}

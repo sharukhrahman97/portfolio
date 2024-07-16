@@ -1,0 +1,406 @@
+---
+import { buttonVariants } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
+import { homeConfig } from "@/config/home";
+import MainLayout from "@/layouts/main-layout.astro";
+import { cn } from "@/lib/utils";
+import Icon from "astro-icon";
+import { AvatarComponent } from "@/components/avatar/avatar";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import Resume from "../assets/resume-en.pdf";
+---
+
+<MainLayout title="Sharukh's Portfolio">
+	<section
+		class="flex space-y-6 pb-12 pt-16 lg:py-28 md:h-[calc(100vh-4rem)]"
+	>
+		<div
+			class="container flex flex-col md:flex-row gap-20 items-center justify-center place-items-center"
+		>
+			<AvatarComponent
+				client:load
+				className="object-cover flex size-48 sm:size-48 md:size-60 lg:size-80"
+				src={homeConfig.avatar}
+				alt="@sharukhrahman"
+				fallbackText="SR"
+			/>
+			<div class="flex flex-col items-start text-center">
+				<h1
+					class="font-heading text-3xl font-bold sm:text-3xl md:text-4xl lg:text-5xl !leading-[1.1] text-balance text-wrap text-start"
+				>
+					<span
+						class="flex items-end text-4xl font-bold sm:text-4xl md:text-5xl lg:text-6xl !leading-[1.1] text-balance"
+						>Hi!<Icon
+							name="waving-hand"
+							class="size-10 sm:mr-4 md:mr-6 lg:mr-8 sm:size-10 md:size-20 lg:size-30"
+						/>
+					</span>
+					I'm
+					<span class="text-gradient"> Sharukh Rahman</span>.
+				</h1>
+				<!-- <h4 class="text-thin sm:text-lg md:text-xl lg:text-2xl">
+					{homeConfig.title}
+				</h4> -->
+				<div class="flex flex-col gap-2 lg:flex-row lg:gap-14">
+					<div
+						class="flex justify-start items-center pt-2 whitespace-break-spaces"
+					>
+						<Icon
+							class="size-4 mr-1 sm:size-4 md:size-5 lg:size-5"
+							name="lucide:map-pin"
+						/>
+						{homeConfig.place}
+					</div>
+					<div
+						class="flex justify-start items-center pt-2 whitespace-break-spaces"
+					>
+						<Icon
+							class="size-4 mr-1 sm:size-4 md:size-5 lg:size-5"
+							name="lucide:languages"
+						/>
+						{homeConfig.languages.join(", ") + "."}
+					</div>
+					<div
+						class="flex justify-start items-center pt-2 whitespace-break-spaces"
+					>
+						<Icon
+							class="size-4 mr-1 sm:size-4 md:size-5 lg:size-5"
+							name="lucide:user"
+						/>
+						{`${homeConfig.gender} - ${homeConfig.dob}`}
+					</div>
+				</div>
+				<p
+					class="flex text-justify font-base sm:text-base md:text-lg lg:text-xl py-4"
+				>
+					{homeConfig.summary}
+				</p>
+
+				<div
+					class="flex flex-wrap justify-center items-center gap-4 py-4"
+				>
+					<a
+						href={Resume}
+						download
+						class={cn(buttonVariants({ size: "lg" }))}
+					>
+						<Icon name="lucide:download" class="mr-2 size-5" />
+						Download
+					</a>
+					<a
+						href={homeConfig.mail}
+						class={cn(
+							buttonVariants({ variant: "secondary", size: "lg" })
+						)}
+					>
+						<Icon name="lucide:mail" class="mr-2 size-5" />
+						Email
+					</a>
+					{
+						homeConfig.contacts.map((contact) => {
+							return (
+								<a
+									href={contact.url}
+									target="_blank"
+									rel="noreferrer"
+									class={cn(
+										buttonVariants({
+											variant: "outline",
+											size: "lg",
+										})
+									)}
+								>
+									<Icon
+										name={contact.icon}
+										class="mr-2 size-5"
+									/>
+									{contact.title}
+								</a>
+							);
+						})
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="work" class="container space-y-12 py-4 md:py-6 lg:py-12">
+		<h2 class="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+			Work Experience
+		</h2>
+		<div
+			class="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[120rem] md:grid-cols-2"
+		>
+			{
+				homeConfig.works.map((work) => {
+					return (
+						<Card className="h-min">
+							<CardHeader>
+								<CardTitle>{work.title}</CardTitle>
+								<CardDescription>
+									{`${work.subtitle} - ${work.place}`}
+								</CardDescription>
+								<CardDescription>
+									{work.duration}
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-justify">{work.desc}</p>
+							</CardContent>
+							<CardFooter>
+								<ul class="pl-6 text-justify">
+									{work.list?.map((item) => {
+										return (
+											<li class="list-disc">{item}</li>
+										);
+									})}
+								</ul>
+							</CardFooter>
+						</Card>
+					);
+				})
+			}
+		</div>
+	</section>
+
+	<section id="skills" class="container space-y-12 py-4 md:py-6 lg:py-12">
+		<h2 class="font-heading text-3xl sm:text-3xl md:text-6xl">Skills</h2>
+		<h3 class="font-semibold text-xl sm:text-2xl md:text-3xl">Backend</h3>
+		<div
+			class="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[120rem] md:grid-cols-3"
+		>
+			{
+				homeConfig.backend.map((skill) => {
+					return (
+						<Card className="h-min">
+							<CardHeader>
+								<Icon
+									name={skill.icon}
+									class="size-10 sm:mr-4 md:mr-6 lg:mr-8 sm:size-10 md:size-20 lg:size-30"
+								/>
+								<CardTitle>{skill.name}</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<p class="text-justify">{skill.desc}</p>
+							</CardContent>
+							<CardFooter>
+								{skill.url?.map((item) => {
+									return (
+										<a
+											href={item}
+											class={cn(
+												buttonVariants({
+													size: "lg",
+													variant: "secondary",
+												})
+											)}
+										>
+											View
+											<Icon
+												name="lucide:arrow-down-right"
+												class="mr-2 size-5"
+											/>
+										</a>
+									);
+								})}
+							</CardFooter>
+						</Card>
+					);
+				})
+			}
+		</div>
+		<h3 class="font-semibold text-xl sm:text-2xl md:text-3xl">Frontend</h3>
+		<div
+			class="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[120rem] md:grid-cols-3"
+		>
+			{
+				homeConfig.frontend.map((skill) => {
+					return (
+						<Card className="h-min">
+							<CardHeader>
+								<Icon
+									name={skill.icon}
+									class="size-10 sm:mr-4 md:mr-6 lg:mr-8 sm:size-10 md:size-20 lg:size-30"
+								/>
+								<CardTitle>{skill.name}</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<p class="text-justify">{skill.desc}</p>
+							</CardContent>
+							<CardFooter>
+								{skill.url?.map((item) => {
+									return (
+										<a
+											href={item}
+											class={cn(
+												buttonVariants({
+													size: "lg",
+													variant: "secondary",
+												})
+											)}
+										>
+											View
+											<Icon
+												name="lucide:arrow-down-right"
+												class="mr-2 size-5"
+											/>
+										</a>
+									);
+								})}
+							</CardFooter>
+						</Card>
+					);
+				})
+			}
+		</div>
+		<h3 class="font-semibold text-xl sm:text-2xl md:text-3xl">Devops</h3>
+		<div
+			class="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[120rem] md:grid-cols-3"
+		>
+			{
+				homeConfig.devops.map((skill) => {
+					return (
+						<Card className="h-min">
+							<CardHeader>
+								<Icon
+									name={skill.icon}
+									class="size-10 sm:mr-4 md:mr-6 lg:mr-8 sm:size-10 md:size-20 lg:size-30"
+								/>
+								<CardTitle>{skill.name}</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<p class="text-justify">{skill.desc}</p>
+							</CardContent>
+							<CardFooter>
+								{skill.url?.map((item) => {
+									return (
+										<a
+											href={item}
+											class={cn(
+												buttonVariants({
+													size: "lg",
+													variant: "secondary",
+												})
+											)}
+										>
+											View
+											<Icon
+												name="lucide:arrow-down-right"
+												class="mr-2 size-5"
+											/>
+										</a>
+									);
+								})}
+							</CardFooter>
+						</Card>
+					);
+				})
+			}
+		</div>
+	</section>
+	<section
+		id="personalwork"
+		class="container space-y-12 py-4 md:py-6 lg:py-12"
+	>
+		<h2 class="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+			Personal Projects
+		</h2>
+		<div
+			class="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[120rem] md:grid-cols-2"
+		>
+			{
+				homeConfig.personalWorks.map((work) => {
+					return (
+						<Card className="h-min">
+							<CardHeader>
+								<CardTitle>{work.title}</CardTitle>
+								<CardDescription>
+									{work.subtitle}
+								</CardDescription>
+								<CardDescription>
+									{work.duration}
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-justify">{work.desc}</p>
+							</CardContent>
+							<CardContent>
+								<ul class="pl-6 text-justify">
+									{work.list?.map((item) => {
+										return (
+											<li class="list-disc">{item}</li>
+										);
+									})}
+								</ul>
+							</CardContent>
+							<CardFooter>
+								<a
+									href={work.url}
+									target="_blank"
+									rel="noreferrer"
+									class={cn(
+										buttonVariants({
+											variant: "secondary",
+											size: "lg",
+										})
+									)}
+								>
+									<Icon
+										name="lucide:arrow-down-right"
+										class="mr-2 size-5"
+									/>
+									Visit
+								</a>
+							</CardFooter>
+						</Card>
+					);
+				})
+			}
+		</div>
+	</section>
+	<section id="education" class="container space-y-12 py-4 md:py-6 lg:py-12">
+		<h2 class="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+			Education
+		</h2>
+		<div
+			class="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[120rem] md:grid-cols-2"
+		>
+			{
+				homeConfig.education.map((work) => {
+					return (
+						<Card className="h-min">
+							<CardHeader>
+								<CardTitle>{work.title}</CardTitle>
+								<CardDescription>
+									{`${work.subtitle} - ${work.place}`}
+								</CardDescription>
+								<CardDescription>
+									{work.duration}
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-justify">{work.desc}</p>
+							</CardContent>
+							<CardFooter>
+								<ul class="pl-6">
+									{work.list?.map((item) => {
+										return (
+											<li class="list-disc">{item}</li>
+										);
+									})}
+								</ul>
+							</CardFooter>
+						</Card>
+					);
+				})
+			}
+		</div>
+	</section>
+</MainLayout>
